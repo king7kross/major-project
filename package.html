@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>package</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% if session.get('user') %}
+    {% set user = session.get('user') %}
+{% else %}
+    {% set user = None %}
+{% endif %}
+<section class="header">
+
+  <div class="logo-container" style="display: inline-block; text-align: center;">
+<a href="{{ url_for('home') }}" class="logo" style="display: block;">TourMate</a>
+    <div class="tagline" style="font-size: 1.3rem; color: #6a1b9a; font-weight: 600; margin-top: 2px;">Your travel buddy always ready</div>
+  </div>
+
+  <nav class="navbar">
+   <a href="{{ url_for('home') }}">home</a>
+   <a href="{{ url_for('about') }}">about</a>
+   <a href="{{ url_for('package') }}">package</a>
+   <a href="{{ url_for('book') }}">book</a>
+   {% if user %}
+       <a href="#">Hello, {{ user.username }}</a>
+       <a href="{{ url_for('logout') }}">logout</a>
+   {% else %}
+       <a href="{{ url_for('login') }}">login</a>
+       <a href="{{ url_for('register') }}">register</a>
+   {% endif %}
+  </nav>
+
+  <div id="menu-btn" class="fas fa-bars"></div>
+
+</section>
+
+<div class="heading" style="background:url({{ url_for('static', filename='1.jpg') }}) no-repeat">
+    <h1>packages</h1>
+</div>
+
+<!-- package section starts-->
+
+<section class="packages">
+
+    <h1 class="heading-title">top destinations</h1>
+
+        <div class="box-container">
+            <div class="box">
+                <div class="image">
+                    <img src="{{ url_for('static', filename='a.jpg') }}" alt="">
+                </div>
+                <div class="content">
+            <h3>Varanasi: Where Spirituality Meets the Flow of Time</h3>
+            <p>Come, Lose Yourself in the Sacred Streets of Varanasi!</p>
+            <a href="{{ url_for('book') }}" class="btn">book now</a>
+                </div>
+            </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='b.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Himachal Pradesh: Where the Himalayas Whisper Adventure</h3>
+        <p>Escape to Himachal Pradesh — Breathe in the Mountain Magic!</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='c.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Odisha: Explore India’s Hidden Gem on the Eastern Coast</h3>
+        <p>Discover Odisha — From Jagannath’s Blessings to Sun-Kissed Shores</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='d.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Goa: Dance to the Rhythm of Waves and Freedom</h3>
+        <p>Escape to Goa — Where Every Sunset is a Celebration!</p>
+        <a href="{{ url_for('book') }}" class="btn" style="display:inline-block;">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='e.jpg') }}" alt="">
+            </div>
+            <div class="content">
+                <h3>Shimla: The Queen of Hills Beckons You</h3>
+                <p>Pack Your Woolens — Shimla’s Winter Wonderland is Calling!</p>
+                <a href="{{ url_for('book') }}" class="btn" style="display:inline-block;">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='f.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Tamil Nadu: The Soul of South India</h3>
+        <p>Visit Tamil Nadu — Walk Through Centuries of Art, Dance, and Devotion</p>
+        <a href="{{ url_for('book') }}" class="btn" style="display:inline-block;">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='g.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Jammu & Kashmir: Paradise on Earth</h3>
+        <p>Visit Jammu & Kashmir — Let Nature’s Paradise Enchant Your Soul</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='h.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Punjab: A Celebration of Food, Faith, and Festivities</h3>
+        <p>Experience Punjab — From Golden Temples to Green Fields</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='i.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Mumbai: The City That Never Sleeps</h3>
+        <p>Mumbai — Dive Into the Magic of India’s Maximum City</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='j.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Arunachal Pradesh: The Land of the Rising Sun</h3>
+        <p>Explore Arunachal: Adventure, Culture, and Nature in One Trip!</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='k.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Ladakh: Where the Mountains Touch the Sky</h3>
+        <p>Discover Ladakh: A Journey to the Roof of the World!</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="{{ url_for('static', filename='l.jpg') }}" alt="">
+            </div>
+            <div class="content">
+        <h3>Sikkim: The Jewel of the Himalayas</h3>
+        <p>Explore Sikkim: A Land of Serenity, Beauty, and Adventure!</p>
+        <a href="{{ url_for('book') }}" class="btn">book now</a>
+            </div>
+        </div>
+    </div>
+
+  
+</section>
+
+<!-- package section ends-->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+           <a href="{{ url_for('home') }}"> <i class="fa fa-angle-right"></i> home</a>
+           <a href="{{ url_for('about') }}"> <i class="fa fa-angle-right"></i> about</a>
+           <a href="{{ url_for('package') }}"> <i class="fa fa-angle-right"></i> package</a>
+           <a href="{{ url_for('book') }}"> <i class="fa fa-angle-right"></i> book</a>
+
+        </div>
+
+        <div class="box">
+            <h3>extra links</h3>
+           <a href="#"> <i class="fa fa-angle-right"></i> ask questions</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> about us</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> privacy policy</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> terms of use</a>
+
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9876543210</a>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9988776655</a>
+           <a href="#"> <i class="fa fa-envelope"></i> singhkartik210@gmail.com</a>
+           <a href="#"> <i class="fa fa-map"></i> varanasi, india-221010</a>
+
+        </div>
+
+        <div class="box">
+            <h3>follow-us</h3>
+            <a href="#"><i class="fab fa-facebook"></i>facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+            <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+        </div>
+
+    </div>
+
+    <div class="credit"> created by <span>AKA</span> | all rights reserved!</div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

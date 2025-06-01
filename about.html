@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>about</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% if session.get('user') %}
+    {% set user = session.get('user') %}
+{% else %}
+    {% set user = None %}
+{% endif %}
+<section class="header">
+
+  <div class="logo-container" style="display: inline-block; text-align: center;">
+<a href="{{ url_for('home') }}" class="logo" style="display: block;">TourMate</a>
+    <div class="tagline" style="font-size: 1.3rem; color: #6a1b9a; font-weight: 600; margin-top: 2px;">Your travel buddy always ready</div>
+  </div>
+
+  <nav class="navbar">
+   <a href="{{ url_for('home') }}">home</a>
+   <a href="{{ url_for('about') }}">about</a>
+   <a href="{{ url_for('package') }}">package</a>
+   <a href="{{ url_for('book') }}">book</a>
+   {% if user %}
+       <a href="#">Hello, {{ user.username }}</a>
+       <a href="{{ url_for('logout') }}">logout</a>
+   {% else %}
+       <a href="{{ url_for('login') }}">login</a>
+       <a href="{{ url_for('register') }}">register</a>
+   {% endif %}
+  </nav>
+
+  <div id="menu-btn" class="fas fa-bars"></div>
+
+</section>
+
+<div class="heading" style="background:url({{ url_for('static', filename='1.jpg') }}) no-repeat">
+    <h1>about us</h1>
+</div>
+
+<!-- about section starts-->
+
+<section class="about">
+
+    <div class="image">
+
+        <img src="{{ url_for('static', filename='55.jpg') }}" alt="">
+    </div>
+
+    <div class="content">
+        <h3>why choose us?</h3>
+        <p>Choose us for your travel adventures across India because we offer expertly curated packages that combine cultural richness, thrilling adventures, and serene nature escapes. Our dedicated team ensures personalized service, seamless booking, and 24/7 support to make your journey unforgettable.</p>
+        <p>With a focus on authentic experiences, affordable pricing, and top destinations, we provide comprehensive travel solutions tailored to your preferences. Trust us to guide you through memorable journeys filled with excitement, comfort, and discovery.</p>
+        <div class="icons-container">
+            <div class="icons">
+            <i class="fas fa-map"></i>
+            <span>top destination</span>
+            </div>
+        
+            <div class="icons">
+            <i class="fas fa-hand-holding-usd"></i>
+            <span>affordable price</span>
+            </div>
+
+            <div class="icons">
+            <i class="fas fa-headset"></i>
+            <span>24/7 guide service</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- about section ends-->
+
+<!-- review section starts-->
+
+<h1 class="heading-title">our customer reviews</h1>
+
+<section class="reviews">
+    
+    <div class="reviews-slider">
+
+        <div class="wrapper">
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>The travel packages offered were exceptional, providing a perfect blend of adventure and cultural experiences. Highly recommend for anyone looking to explore India authentically.</p>
+                <h3>kartik singh</h3>
+                <span>traveler</span>
+                <img src="{{ url_for('static', filename='man.png') }}" alt="">
+            </div>
+
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Excellent customer service and well-organized tours. The guides were knowledgeable and friendly, making the entire experience enjoyable and stress-free.</p>
+                <h3>ashish singh</h3>
+                <span>adventurer</span>
+                <img src="{{ url_for('static', filename='man1.png') }}" alt="">
+            </div>
+
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Amazing variety of packages that cater to different interests. The booking process was simple, and the trips were well planned with attention to detail.</p>
+                <h3>aman chaurasia</h3>
+                <span>explorer</span>
+                <img src="{{ url_for('static', filename='man2.png') }}" alt="">
+            </div>
+
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Great value for money and excellent support throughout the trip. I felt safe and well taken care of during my entire journey.</p>
+                <h3>salman khan</h3>
+                <span>traveler</span>
+                <img src="{{ url_for('static', filename='man3.png') }}" alt="">
+            </div>
+
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>The guides were very knowledgeable and friendly, making the cultural tours both educational and enjoyable. Highly recommended for first-time visitors.</p>
+                <h3>amir khan</h3>
+                <span>wonderer</span>
+                <img src="{{ url_for('static', filename='man4.png') }}" alt="">
+            </div>
+
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Every aspect of the trip was well organized, from transportation to accommodations. The customer support team was responsive and helpful throughout.</p>
+                <h3>anushka sharma</h3>
+                <span>adventurer</span>
+                <img src="{{ url_for('static', filename='woman.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- review section ends-->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+           <a href="{{ url_for('home') }}"> <i class="fa fa-angle-right"></i> home</a>
+           <a href="{{ url_for('about') }}"> <i class="fa fa-angle-right"></i> about</a>
+           <a href="{{ url_for('package') }}"> <i class="fa fa-angle-right"></i> package</a>
+           <a href="{{ url_for('book') }}"> <i class="fa fa-angle-right"></i> book</a>
+
+        </div>
+
+        <div class="box">
+            <h3>extra links</h3>
+           <a href="#"> <i class="fa fa-angle-right"></i> ask questions</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> about us</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> privacy policy</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> terms of use</a>
+
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9876543210</a>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9988776655</a>
+           <a href="#"> <i class="fa fa-envelope"></i> singhkartik210@gmail.com</a>
+           <a href="#"> <i class="fa fa-map"></i> varanasi, india-221010</a>
+
+        </div>
+
+        <div class="box">
+            <h3>follow-us</h3>
+            <a href="#"><i class="fab fa-facebook"></i>facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+            <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+        </div>
+
+    </div>
+
+    <div class="credit"> created by <span>AKA</span> | all rights reserved!</div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

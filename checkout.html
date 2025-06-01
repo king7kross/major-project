@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+        .checkout-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            border: 1px solid #8e44ad;
+            border-radius: 10px;
+            background: #f9f9f9;
+            font-family: 'Poppins', sans-serif;
+        }
+        h2 {
+            color: #8e44ad;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .booking-details {
+            margin-bottom: 2rem;
+        }
+        .booking-details p {
+            font-size: 1.6rem;
+            margin: 0.5rem 0;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.6rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #732d91;
+        }
+        .no-booking {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h2>Checkout</h2>
+        {% if booking %}
+            <div class="booking-details">
+                <p><strong>Name:</strong> {{ booking.name }}</p>
+                <p><strong>Email:</strong> {{ booking.email }}</p>
+                <p><strong>Phone:</strong> {{ booking.phone }}</p>
+                <p><strong>Address:</strong> {{ booking.address }}</p>
+                <p><strong>Destination:</strong> {{ booking.location }}</p>
+                <p><strong>Guests:</strong> {{ booking.guests }}</p>
+                <p><strong>Arrival Date:</strong> {{ booking.arrivals }}</p>
+                <p><strong>Departure Date:</strong> {{ booking.departure }}</p>
+                <p><strong>Price:</strong> {{ "{:,}".format(price) }}</p>
+            </div>
+            <form method="post" class="btn-group">
+                <button type="submit" name="remove_booking" class="btn" onclick="return confirm('Are you sure you want to remove your booking?');">Remove Booking</button>
+                <button type="submit" name="proceed_payment" class="btn">Proceed to Payment</button>
+            </form>
+        {% else %}
+            <p class="no-booking">No booking details found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

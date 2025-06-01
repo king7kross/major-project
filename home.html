@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   
+<!-- header section starts-->
+{% if session.get('user') %}
+    {% set user = session.get('user') %}
+{% else %}
+    {% set user = None %}
+{% endif %}
+<section class="header">
+
+  <div class="logo-container" style="display: inline-block; text-align: center;">
+<a href="{{ url_for('home') }}" class="logo" style="display: block;">TourMate</a>
+    <div class="tagline" style="font-size: 1.3rem; color: #6a1b9a; font-weight: 600; margin-top: 2px;">Your travel buddy always ready</div>
+  </div>
+
+  <nav class="navbar">
+   <a href="{{ url_for('home') }}">home</a>
+   <a href="{{ url_for('about') }}">about</a>
+   <a href="{{ url_for('package') }}">package</a>
+   <a href="{{ url_for('book') }}">book</a>
+   {% if user %}
+       <a href="#">Hello, {{ user.username }}</a>
+       <a href="{{ url_for('logout') }}">logout</a>
+   {% else %}
+       <a href="{{ url_for('login') }}">login</a>
+       <a href="{{ url_for('register') }}">register</a>
+   {% endif %}
+  </nav>
+
+  <div id="menu-btn" class="fas fa-bars"></div>
+
+</section>
+<!-- header section ends-->
+
+<section class="home">
+
+<div class="swiper home-slider">
+  <div class="swiper-wrapper">
+      
+    <div class="swiper-slide slide" style="background:url({{ url_for('static', filename='1.jpg') }}) no-repeat">
+            
+             <div class="content">
+                <span>explore,discover,travel</span>
+                <h3>Embark on a journey across India</h3>
+                <a href="{{ url_for('package') }}" class="btn">discover more</a>
+             </div>
+    </div>
+    
+    <div class="swiper-slide slide" style="background:url({{ url_for('static', filename='2.jpg') }}) no-repeat">
+            
+             <div class="content">
+                <span>explore,discover,travel</span>
+                <h3>discover the new places</h3>
+                
+                <a href="{{ url_for('package') }}" class="btn">discover more</a>
+             </div>
+    </div>
+
+    <div class="swiper-slide slide" style="background:url({{ url_for('static', filename='3.jpg') }}) no-repeat">
+            
+             <div class="content">
+                <span>explore,discover,travel</span>
+                <h3>make your tour worthwhile</h3>
+                
+                <a href="{{ url_for('package') }}" class="btn">discover more</a>
+             </div>
+    </div>
+
+  </div>
+   
+      <div class="swiper-button-next"></div>
+    <div class=" "></div>
+
+</div>
+
+</section>
+
+<!-- services section starts-->
+
+<section class="services">
+ 
+  <h1 class="heading-title">our service</h1>
+   
+  <div class="box-container">
+
+   <div class="box">
+     <img src="{{ url_for('static', filename='adventure.png') }}" alt="" >
+     <h3 >adventure</h3>
+   </div>
+
+   <div class="box">
+    <img src="{{ url_for('static', filename='tour-guide.png') }}" alt="">
+    <h3>tour guide</h3>
+   </div>
+
+   <div class="box">
+    <img src="{{ url_for('static', filename='hiking.png') }}" alt="" >
+    <h3>trekking</h3>
+   </div>
+
+   <div class="box">
+    <img src="{{ url_for('static', filename='bonfire.png') }}" alt="">
+    <h3>camp fire</h3>
+   </div>
+
+   <div class="box">
+    <img src="{{ url_for('static', filename='jeep.png') }}" alt="">
+    <h3>off road</h3>
+   </div>
+
+   <div class="box">
+    <img src="{{ url_for('static', filename='tent.png') }}" alt="">
+    <h3>camping</h3>
+   </div>
+
+  </div>
+
+</section>
+
+<!-- services section ends-->
+
+<!-- home about starts-->
+
+<section class="home-about">
+
+    <div class="image">
+      <img src="{{ url_for('static', filename='11.jpg') }}" alt="">
+    </div>
+
+    <div class="content">
+      <h3>about us</h3>
+      <p>Our travel booking website is designed to provide seamless and personalized travel experiences across India. We offer a wide range of carefully curated travel packages, including adventure tours, trekking, camping, and cultural explorations. Our platform ensures easy booking, secure payments, and 24/7 customer support to make your journey memorable and hassle-free.</p>
+      <a href="{{ url_for('about') }}" class="btn">read more</a>
+    </div>
+</section>
+
+<!-- home about ends-->
+
+<!-- home packages section starts-->
+
+<section class="home-packages">
+    <h1 class="heading-title">our packages</h1>
+
+    <div class="box-container">
+
+      <div class="box">
+          <div class="image">
+              <img src="{{ url_for('static', filename='22.jpg') }}" alt="">
+          </div> 
+          <div class="content">
+          <h3>adventure and tour</h3>
+          <p>Immerse yourself in the rich heritage and vibrant traditions of India with our cultural exploration packages. Experience authentic local lifestyles, festivals, and historic landmarks curated for a deep cultural connection.</p>
+          <a href="{{ url_for('book') }}" class="btn">book now</a>
+           </div>
+      </div>
+
+      <div class="box">
+          <div class="image">
+              <img src="{{ url_for('static', filename='33.jpg') }}" alt="">
+          </div> 
+          <div class="content">
+          <h3>cultural explorations</h3>
+          <p>Discover diverse cultures and traditions with our immersive cultural exploration packages. Experience festivals, local cuisines, and historic landmarks that bring India’s heritage to life. Our expert guides ensure an enriching journey filled with unforgettable moments.</p>
+          <a href="{{ url_for('book') }}" class="btn">book now</a>
+           </div>
+      </div>
+
+      <div class="box">
+          <div class="image">
+              <img src="{{ url_for('static', filename='44.jpg') }}" alt="">
+          </div> 
+          <div class="content">
+          <h3>nature escapes</h3>
+          <p>Discover a variety of travel experiences with our curated packages that highlight the beauty and culture of India. From serene nature escapes to vibrant city tours, each package is crafted to meet diverse traveler preferences.</p>
+          <a href="{{ url_for('book') }}" class="btn">book now</a>
+           </div>
+      </div>
+
+    </div>
+
+    <div class="load-more"><a href="{{ url_for('package') }}" class="btn">load more</a></div>
+</section>
+
+<!-- home packages section ends-->
+
+<!-- footer section starts-->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+           <a href="{{ url_for('home') }}"> <i class="fa fa-angle-right"></i> home</a>
+           <a href="{{ url_for('about') }}"> <i class="fa fa-angle-right"></i> about</a>
+           <a href="{{ url_for('package') }}"> <i class="fa fa-angle-right"></i> package</a>
+           <a href="{{ url_for('book') }}"> <i class="fa fa-angle-right"></i> book</a>
+
+        </div>
+
+        <div class="box">
+            <h3>extra links</h3>
+           <a href="#"> <i class="fa fa-angle-right"></i> ask questions</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> about us</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> privacy policy</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> terms of use</a>
+
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9876543210</a>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9988776655</a>
+           <a href="#"> <i class="fa fa-envelope"></i> singhkartik210@gmail.com</a>
+           <a href="#"> <i class="fa fa-map"></i> varanasi, india-221010</a>
+
+        </div>
+
+        <div class="box">
+            <h3>follow-us</h3>
+            <a href="#"><i class="fab fa-facebook"></i>facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+            <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+        </div>
+
+    </div>
+
+    <div class="credit"> created by <span>AKA</span> | all rights reserved!</div>
+
+</section>
+<!-- footer section starts-->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+  <!-- Chatbot HTML -->
+  {% include 'chatbot.html' %}
+</body>
+</html>

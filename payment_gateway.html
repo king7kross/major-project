@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Gateway</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #8e44ad, #6a1b9a);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+        }
+        .payment-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem 4rem;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px #fff;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        input[type="text"],
+        input[type="tel"] {
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            border-radius: 5px;
+            border: none;
+            font-size: 1.4rem;
+        }
+        .error {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            font-size: 1.4rem;
+        }
+        button {
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.6rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+        button:hover {
+            background-color: #732d91;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container" role="main" aria-live="polite">
+        <h1>Payment Gateway</h1>
+        {% if errors %}
+            {% for error in errors %}
+                <div class="error" role="alert">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="post" novalidate>
+            <label for="card_number">Card Number</label>
+            <input type="tel" id="card_number" name="card_number" maxlength="16" pattern="[0-9]{16}" placeholder="1234 5678 9012 3456" required value="{{ request.form.get('card_number', '') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            
+            <label for="expiry">Expiry Date (MM/YY)</label>
+            <input type="text" id="expiry" name="expiry" pattern="(0[1-9]|1[0-2])\/\d{2}" placeholder="MM/YY" required value="{{ request.form.get('expiry', '') }}" oninput="formatExpiryDate(this)" maxlength="5" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            
+            <label for="cvv">CVV</label>
+            <input type="tel" id="cvv" name="cvv" maxlength="3" pattern="[0-9]{3}" placeholder="123" required value="{{ request.form.get('cvv', '') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            
+            <label for="name_on_card">Name on Card</label>
+            <input type="text" id="name_on_card" name="name_on_card" placeholder="John Doe" required value="{{ request.form.get('name_on_card', '') }}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+    <script>
+        function formatExpiryDate(input) {
+            // Remove all non-digit and non-slash characters
+            let value = input.value.replace(/[^0-9\/]/g, '');
+            // Add slash after 2 digits if not present
+            if (value.length === 2 && !value.includes('/')) {
+                value = value + '/';
+            }
+            // Limit length to 5 characters (MM/YY)
+            if (value.length > 5) {
+                value = value.slice(0, 5);
+            }
+            input.value = value;
+        }
+    </script>
+</body>
+</html>

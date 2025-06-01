@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Now</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% if session.get('user') %}
+    {% set user = session.get('user') %}
+{% else %}
+    {% set user = None %}
+{% endif %}
+<section class="header">
+
+  <div class="logo-container" style="display: inline-block; text-align: center;">
+<a href="{{ url_for('home') }}" class="logo" style="display: block;">TourMate</a>
+    <div class="tagline" style="font-size: 1.3rem; color: #6a1b9a; font-weight: 600; margin-top: 2px;">Your travel buddy always ready</div>
+  </div>
+
+  <nav class="navbar">
+   <a href="{{ url_for('home') }}">home</a>
+   <a href="{{ url_for('about') }}">about</a>
+   <a href="{{ url_for('package') }}">package</a>
+   <a href="{{ url_for('book') }}">book</a>
+   {% if user %}
+       <a href="#">Hello, {{ user.username }}</a>
+       <a href="{{ url_for('logout') }}">logout</a>
+   {% else %}
+       <a href="{{ url_for('login') }}">login</a>
+       <a href="{{ url_for('register') }}">register</a>
+   {% endif %}
+  </nav>
+
+  <div id="menu-btn" class="fas fa-bars"></div>
+
+</section>
+
+<div class="heading" style="background:url({{ url_for('static', filename='1.jpg') }}) no-repeat">
+    <h1>book now</h1>
+</div>
+
+<!-- booking section starts-->
+
+<section class="booking">
+
+    <h1 class="heading-title">book your trip!</h1>
+
+    {% if session.get('booking_confirmed') %}
+        <p id="booking-confirmation" style="color: green; font-weight: bold; font-size: 2rem; text-align: center; margin: 20px 0;">Booking confirmed!</p>
+    {% endif %}
+
+    <form action="{{ url_for('book') }}" method="post" class="book-form" id="bookingForm" onsubmit="return validateForm()">
+        <p id="form-message" style="color: red; font-size: 1.2rem; margin-bottom: 10px; display: none;">All details are mandatory.</p>
+
+        <div class="flex">
+            <div class="inputBox">
+                <span>name :</span>
+                <input type="text" placeholder="enter your name" name="name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>email :</span>
+                <input type="email" placeholder="enter your email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>phone :</span>
+                <input type="tel" placeholder="enter your 10-digit mobile number" name="phone" pattern="[0-9]{10}" maxlength="10" title="Please enter exactly 10 digits, numbers only" oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>address :</span>
+                <input type="text" placeholder="enter your address" name="address" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>destination :</span>
+                <select name="location" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width: 100%; padding: 1.2rem 1.4rem; font-size: 1.6rem; margin-top: 1.5rem; border: 1px solid #222; color: #777; box-sizing: border-box;">
+                    <option value="" disabled selected>Select your destination</option>
+                    <option value="Varanasi">Varanasi</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Shimla">Shimla</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Sikkim">Sikkim</option>
+                </select>
+            </div>
+            <div class="inputBox">
+                <span>no of guest :</span>
+                <input type="text" placeholder="number of guest" name="guests" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>date of arrival:</span>
+                <input type="date" name="arrivals" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>date of departure:</span>
+                <input type="date" name="departure" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+        </div>
+
+        <input type="submit" value="submit" class="btn" name="send" id="submitBtn" disabled />
+    </form>
+</section>
+
+<script>
+    const form = document.getElementById('bookingForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function validateForm() {
+        const name = form.elements['name'].value.trim();
+        const email = form.elements['email'].value.trim();
+        const phone = form.elements['phone'].value.trim();
+        const address = form.elements['address'].value.trim();
+        const location = form.elements['location'].value;
+        const guests = form.elements['guests'].value.trim();
+        const arrivals = form.elements['arrivals'].value;
+        const departure = form.elements['departure'].value;
+        const formMessage = document.getElementById('form-message');
+
+        if (!name || !email || !phone || !address || !location || !guests || !arrivals || !departure) {
+            formMessage.style.display = 'block';
+            formMessage.textContent = 'All details are mandatory.';
+            return false;
+        }
+        formMessage.style.display = 'none';
+        return true;
+    }
+
+    form.addEventListener('input', () => {
+        const name = form.elements['name'].value.trim();
+        const email = form.elements['email'].value.trim();
+        const phone = form.elements['phone'].value.trim();
+        const address = form.elements['address'].value.trim();
+        const location = form.elements['location'].value;
+        const guests = form.elements['guests'].value.trim();
+        const arrivals = form.elements['arrivals'].value;
+        const departure = form.elements['departure'].value;
+
+        if (name && email && phone && address && location && guests && arrivals && departure) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    });
+</script>
+
+<!-- booking section ends-->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+           <a href="{{ url_for('home') }}"> <i class="fa fa-angle-right"></i> home</a>
+           <a href="{{ url_for('about') }}"> <i class="fa fa-angle-right"></i> about</a>
+           <a href="{{ url_for('package') }}"> <i class="fa fa-angle-right"></i> package</a>
+           <a href="{{ url_for('book') }}"> <i class="fa fa-angle-right"></i> book</a>
+
+        </div>
+
+        <div class="box">
+            <h3>extra links</h3>
+           <a href="#"> <i class="fa fa-angle-right"></i> ask questions</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> about us</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> privacy policy</a>
+           <a href="#"> <i class="fa fa-angle-right"></i> terms of use</a>
+
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9876543210</a>
+           <a href="#"> <i class="fa fa-phone"></i> +91 9988776655</a>
+           <a href="#"> <i class="fa fa-envelope"></i> singhkartik210@gmail.com</a>
+           <a href="#"> <i class="fa fa-map"></i> varanasi, india-221010</a>
+
+        </div>
+
+        <div class="box">
+            <h3>follow-us</h3>
+            <a href="#"><i class="fab fa-facebook"></i>facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+            <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+        </div>
+
+    </div>
+
+    <div class="credit"> created by <span>AKA</span> | all rights reserved!</div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

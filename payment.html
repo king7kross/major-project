@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Confirmation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #8e44ad, #6a1b9a);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+        }
+        .confirmation-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem 4rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #fff;
+        }
+        p {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        .booking-id {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 0.3rem;
+            background: linear-gradient(90deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+        .booking-details, .payment-details {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            line-height: 1.5;
+        }
+        .booking-details p, .payment-details p {
+            margin: 0.3rem 0;
+        }
+        a.btn {
+            display: inline-block;
+            background-color: #fff;
+            color: #8e44ad;
+            padding: 1rem 2rem;
+            font-size: 1.6rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+            transition: background-color 0.3s ease;
+        }
+        a.btn:hover {
+            background-color: #f0e6ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container" role="main" aria-live="polite">
+        <h1>Congratulations!</h1>
+        <p>Your booking is confirmed.</p>
+        {% if payment %}
+            <div class="booking-id" aria-label="Booking Code" style="font-size: 2.4rem; font-weight: 700; letter-spacing: 0.3rem; background: linear-gradient(90deg, #ff6a00, #ee0979); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
+                Booking Code - {{ booking_code }}
+            </div>
+            <div class="payment-details" aria-label="Payment Details">
+                <p><strong>Name on Card:</strong> {{ payment.name_on_card }}</p>
+                <p><strong>Card Number:</strong> **** **** **** {{ payment.card_number[-4:] }}</p>
+            </div>
+        {% else %}
+            <div class="booking-id" style="font-size: 2rem; font-weight: 600; color: #fff; margin-bottom: 2rem;">
+                Booking information could not be retrieved. Please try again.
+            </div>
+        {% endif %}
+        {% if booking %}
+            <div class="booking-details" aria-label="Booking Details">
+                <p><strong>Name:</strong> {{ booking.name }}</p>
+                <p><strong>Email:</strong> {{ booking.email }}</p>
+                <p><strong>Phone:</strong> {{ booking.phone }}</p>
+                <p><strong>Address:</strong> {{ booking.address }}</p>
+                <p><strong>Destination:</strong> {{ booking.location }}</p>
+                <p><strong>Guests:</strong> {{ booking.guests }}</p>
+                <p><strong>Arrival Date:</strong> {{ booking.arrivals }}</p>
+                <p><strong>Departure Date:</strong> {{ booking.departure }}</p>
+                <p><strong>Amount Paid:</strong> {{ '{:,}'.format(booking.guests | int * 10000) }}</p>
+            </div>
+        {% else %}
+            <p>No booking details found.</p>
+        {% endif %}
+        <a href="{{ url_for('home') }}" class="btn" role="button">Back to Home</a>
+    </div>
+</body>
+</html>

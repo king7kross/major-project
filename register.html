@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+{% if session.get('user') %}
+    {% set user = session.get('user') %}
+{% else %}
+    {% set user = None %}
+{% endif %}
+<section class="header">
+
+  <div class="logo-container" style="display: inline-block; text-align: center;">
+<a href="{{ url_for('home') }}" class="logo" style="display: block;">TourMate</a>
+    <div class="tagline" style="font-size: 1.3rem; color: #6a1b9a; font-weight: 600; margin-top: 2px;">Your travel buddy always ready</div>
+  </div>
+
+  <nav class="navbar">
+   <a href="{{ url_for('home') }}">home</a>
+   <a href="{{ url_for('about') }}">about</a>
+   <a href="{{ url_for('package') }}">package</a>
+   <a href="{{ url_for('book') }}">book</a>
+   {% if user %}
+       <a href="#">Hello, {{ user.username }}</a>
+       <a href="{{ url_for('logout') }}">logout</a>
+   {% else %}
+       <a href="{{ url_for('login') }}">login</a>
+       <a href="{{ url_for('register') }}">register</a>
+   {% endif %}
+  </nav>
+
+  <div id="menu-btn" class="fas fa-bars"></div>
+
+</section>
+
+<div class="heading" style="background:url({{ url_for('static', filename='1.jpg') }}) no-repeat">
+    <h1>Register</h1>
+</div>
+
+<section class="booking">
+    <h1 class="heading-title">Create an Account</h1>
+    {% if errors %}
+    <div style="color: red; margin-bottom: 1.5rem; font-size: 1.6rem; font-weight: 600;">
+        <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div style="color: green; margin-bottom: 1.5rem; font-size: 1.6rem; font-weight: 600;">
+        Registration Successful. You Can Now <a href="{{ url_for('login') }}">Login</a>
+    </div>
+    {% endif %}
+    <form action="{{ url_for('register') }}" method="post" class="book-form">
+        <div class="flex">
+            <div class="inputBox">
+                <span>Username :</span>
+                <input type="text" name="username" placeholder="Enter your username" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>Email :</span>
+                <input type="email" name="email" placeholder="Enter your email" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>Password :</span>
+                <input type="password" name="password" placeholder="Enter your password" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+            <div class="inputBox">
+                <span>Confirm Password :</span>
+                <input type="password" name="confirm_password" placeholder="Confirm your password" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+        </div>
+        <input type="submit" value="Register" class="btn" />
+    </form>
+</section>
+
+</body>
+</html>
